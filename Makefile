@@ -217,12 +217,12 @@ install-console:
 		if [ "$(NEED_SUDO)" = "1" ]; then \
 			echo '#!/bin/bash' | sudo tee "$(BIN_DIR)/lzfconsole" > /dev/null; \
 			echo 'cd "$(INSTALL_DIR)"' | sudo tee -a "$(BIN_DIR)/lzfconsole" > /dev/null; \
-			echo 'exec python3 bin/console.py "$$@"' | sudo tee -a "$(BIN_DIR)/lzfconsole" > /dev/null; \
+			echo 'exec python3 lzfconsole "$$@"' | sudo tee -a "$(BIN_DIR)/lzfconsole" > /dev/null; \
 			sudo chmod +x "$(BIN_DIR)/lzfconsole"; \
 		else \
 			echo '#!/bin/bash' > "$(BIN_DIR)/lzfconsole"; \
 			echo 'cd "$(INSTALL_DIR)"' >> "$(BIN_DIR)/lzfconsole"; \
-			echo 'exec python3 bin/console.py "$$@"' >> "$(BIN_DIR)/lzfconsole"; \
+			echo 'exec python3 lzfconsole "$$@"' >> "$(BIN_DIR)/lzfconsole"; \
 			chmod +x "$(BIN_DIR)/lzfconsole"; \
 		fi; \
 		printf "$(BRIGHT_GREEN)OK$(RESET)\n"; \
