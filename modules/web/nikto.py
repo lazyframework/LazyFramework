@@ -33,8 +33,8 @@ console = Console()
 
 MODULE_INFO = {
     "name": "Nikto Web Scanner",
-    "description": "Nikto web server scanner - tests web servers for dangerous files, outdated versions, and CGIs with beautiful output",
-    "author": "LazyHackers",
+    "description": "Nikto web server scanner",
+    "author": "LazyFramework",
     "license": "GPLv3",
     "platform": "Linux/Unix",
     "arch": "all",
