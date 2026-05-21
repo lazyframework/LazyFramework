@@ -31,12 +31,12 @@ console = Console()
 MODULE_INFO = {
     "name": "DNSRecon DNS Enumeration",
     "description": "DNSRecon - Advanced DNS enumeration and reconnaissance tool. Performs various DNS record lookups, brute forcing, zone transfers, and search engine enumeration.",
-    "author": "LazyHackers",
+    "author": "LazyFramework",
     "license": "GPLv3",
     "platform": "Linux/Unix",
     "arch": "all",
     "rank": "Excellent",
-    "dependencies": ["dnsrecon"],
+    "dependencies": [],
     "references": [
         "https://github.com/darkoperator/dnsrecon",
         "https://www.kali.org/tools/dnsrecon/"
