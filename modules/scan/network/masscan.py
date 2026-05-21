@@ -7,6 +7,7 @@ High-speed TCP port scanner with robust interface detection
 """
 
 import subprocess
+import shutil
 import re
 import json
 import ipaddress
@@ -576,16 +577,23 @@ def run(session, options):
     console.clear()
     
     # Banner
-    banner = r"""
- _                    _____                                            _    
-| |    __ _ _____   _|  ___| __ __ _ _ __ ___   _____      _____  _ __| | __
-| |   / _` |_  / | | | |_ | '__/ _` | '_ ` _ \ / _ \ \ /\ / / _ \| '__| |/ /
-| |__| (_| |/ /| |_| |  _|| | | (_| | | | | | |  __/\ V  V / (_) | |  |   < 
-|_____\__,_/___|\__, |_|  |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\
-                |___/    
-    """
-    console.print(banner, style="cyan")
-    console.print()
+    try:
+        width = shutil.get_terminal_size().columns
+    except (AttributeError, OSError):
+        width = 80
+    width = min(width, 85)  # Agar tetap rapi di mobile/Termux
+    
+    title = "M A S S C A N"
+    subtitle = "High-Speed Port Scanner"
+    
+    line = "═" * (width - 2)
+    title_pad = (width - len(title) - 2) // 2
+    subtitle_pad = (width - len(subtitle) - 2) // 2
+    
+    console.print(f"\n[bold cyan]╔{line}╗[/bold cyan]")
+    console.print(f"[bold cyan]║[/bold cyan]{' ' * title_pad}[bold white]{title}[/bold white]{' ' * (width - len(title) - title_pad - 2)}[bold cyan]║[/bold cyan]")
+    console.print(f"[bold cyan]║[/bold cyan]{' ' * subtitle_pad}[bold cyan]{subtitle}[/bold cyan]{' ' * (width - len(subtitle) - subtitle_pad - 2)}[bold cyan]║[/bold cyan]")
+    console.print(f"[bold cyan]╚{line}╝[/bold cyan]\n")   
     
     # Check masscan installation
     masscan_path = check_masscan()
