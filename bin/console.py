@@ -7,6 +7,12 @@ import select
 import json
 import requests
 from pathlib import Path
+# ====================== FORCE PATH ======================
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+# =======================================================
+
 from dataclasses import dataclass, field
 from typing import Dict, Any, Optional, List
 from datetime import datetime  # Tambah ini!
@@ -31,13 +37,11 @@ console = Console()
 import builtins
 builtins.console = console
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(PROJECT_ROOT))
-
-# Define base directories using absolute paths
 BASE_DIR = PROJECT_ROOT
 MODULE_DIR = BASE_DIR / "modules"
 BANNER_DIR = BASE_DIR / "banner"
+CORE_DIR = BASE_DIR / "core"
+
 METADATA_READ_LINES = 120
 
 # ─── Smart Filter (sama dengan ai_assistant.py) ────────────────────────────────
@@ -1346,3 +1350,18 @@ class LazyFramework:
             if cmd in ("exit", "quit"): 
                 break
             getattr(self, f"cmd_{cmd}", lambda a: print("Unknown command"))(args)
+
+def main():
+    """Entry point for CLI console"""
+    try:
+        framework = LazyFramework()
+        framework.repl()
+    except KeyboardInterrupt:
+        print("\n[!] Exiting...")
+    except Exception as e:
+        print(f"[!] Fatal error: {e}")
+        import traceback
+        traceback.print_exc()
+
+if __name__ == "__main__":
+    main()

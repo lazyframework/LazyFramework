@@ -13,10 +13,11 @@ from pathlib import Path
 
 import platform
 import time
-# Add project root to path
-PROJECT_ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(PROJECT_ROOT))
 
+# Set path
+project_root = "/usr/share/lazyframework"
+sys.path.insert(0, project_root)
+os.chdir(project_root)
 def launch_gui():
     """Jalankan GUI tanpa membuka terminal window"""
     os.chdir(BASE_DIR)

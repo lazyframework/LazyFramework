@@ -52,6 +52,10 @@ BIN_DIR      := /usr/local/bin
 DESKTOP_DIR  := /usr/local/share/applications
 ICON_DIR     := /usr/local/share/icons/hicolor/scalable/apps
 PIP_CMD      := pip3
+# Directories
+PREFIX    := $(DESTDIR)/usr
+SHARE_DIR := $(PREFIX)/share/$(NAME)
+BIN_LINK  := $(DESTDIR)/usr/local/bin/lzfconsole
 
 # Deteksi Termux
 ifeq ($(UNAME_S),Linux)
@@ -92,12 +96,6 @@ endif
 .PHONY: all install uninstall clean info help banner check test run-gui install-deps install-binary install-console install-desktop install-icon finish
 
 # ===========================================================================
-# DEFAULT TARGET
-# ===========================================================================
-all: banner header check install
-	@echo "All tasks completed."
-
-# ===========================================================================
 # BANNER (Metasploit-style)
 # ===========================================================================
 banner:
@@ -123,6 +121,7 @@ banner:
 	@echo "    + -- --=[ $(BRIGHT_RED)Type 'help' for commands$(BRIGHT_YELLOW) ]"
 	@echo ""
 	@printf "$(RESET)"
+
 
 # ===========================================================================
 # HEADER (SEToolkit-style)
@@ -150,22 +149,26 @@ check:
 	fi
 	@echo ""
 
+
 # ===========================================================================
 # INSTALL DEPENDENCIES
 # ===========================================================================
 install-deps:
-	@printf "$(BRIGHT_YELLOW)[*]$(RESET) Installing dependencies...\n"
-	@if [ "$(IS_TERMUX)" = "1" ]; then \
-		printf "   Updating pip... "; \
-		$(PIP_CMD) install --upgrade pip >/dev/null 2>&1 && printf "$(BRIGHT_GREEN)OK$(RESET)\n" || printf "$(BRIGHT_RED)SKIP$(RESET)\n"; \
-		printf "   Installing packages... "; \
-		$(PIP_CMD) install rich PyQt6 PyQt6-WebEngine stem requests >/dev/null 2>&1 && printf "$(BRIGHT_GREEN)OK$(RESET)\n" || printf "$(BRIGHT_RED)FAILED$(RESET)\n"; \
-	else \
-		printf "   Updating pip... "; \
-		$(PIP_CMD) install --upgrade pip >/dev/null 2>&1 && printf "$(BRIGHT_GREEN)OK$(RESET)\n" || printf "$(BRIGHT_RED)SKIP$(RESET)\n"; \
-		printf "   Installing packages... "; \
-		$(PIP_CMD) install rich PyQt6 PyQt6-WebEngine stem requests >/dev/null 2>&1 && printf "$(BRIGHT_GREEN)OK$(RESET)\n" || printf "$(BRIGHT_RED)FAILED$(RESET)\n"; \
-	fi
+	@printf "$(BRIGHT_YELLOW)[*]$(RESET) Installing dependencies from requirements.txt...\n"
+	
+	@printf "   Updating pip... "
+	@$(PIP_CMD) install --upgrade pip >/dev/null 2>&1 && \
+		printf "$(BRIGHT_GREEN)OK$(RESET)\n" || printf "$(BRIGHT_YELLOW)SKIP$(RESET)\n"
+	
+	@printf "   Installing packages... "
+	@printf "$(BRIGHT_YELLOW)"
+	@for i in $$(seq 1 20); do \
+		printf "."; \
+		sleep 0.07; \
+	done
+	@$(PIP_CMD) install -r requirements.txt >/dev/null 2>&1 && \
+		printf "$(BRIGHT_GREEN) DONE$(RESET)\n" || printf "$(BRIGHT_RED) FAILED$(RESET)\n"
+	
 	@echo ""
 
 # ===========================================================================
@@ -183,9 +186,9 @@ install-binary:
 
 	@printf "   Copying files... "
 	@if [ "$(NEED_SUDO)" = "1" ]; then \
-		sudo cp -r *.py bin core modules themes widgets "$(INSTALL_DIR)/" 2>/dev/null || true; \
+		sudo cp -r *.py lzfconsole bin core modules themes widgets "$(INSTALL_DIR)/" 2>/dev/null || true; \
 	else \
-		cp -r *.py bin core modules themes widgets "$(INSTALL_DIR)/" 2>/dev/null || true; \
+		cp -r *.py lzfconsole bin core modules themes widgets "$(INSTALL_DIR)/" 2>/dev/null || true; \
 	fi
 	@printf "$(BRIGHT_GREEN)OK$(RESET)\n"
 
@@ -319,10 +322,13 @@ finish:
 	@printf "   Run: $(BRIGHT_GREEN)lazyframework$(RESET) (GUI) or $(BRIGHT_GREEN)lzfconsole$(RESET) (CLI)\n"
 	@echo ""
 
+
+
 # ===========================================================================
 # INSTALL (Main target)
 # ===========================================================================
-install: install-deps install-binary install-console install-desktop install-icon finish
+install: banner header check install-deps install-binary install-console install-desktop install-icon finish
+	@echo ""
 	@echo "Installation completed."
 
 # ===========================================================================
