@@ -1,0 +1,22 @@
+[project]
+name = "Lazy Framework"
+version = "1.0.0"
+description = "LazyFramework Penetration Testing Framework"
+requires-python = ">=3.8"
+dependencies = [
+    "PyQt6>=6.5",
+    "rich>=13.0",
+    "prompt_toolkit>=3.0",
+    "requests",
+]
+
+[project.scripts]
+lzf = "bin.console:LazyFramework.repl"
+lazyframework = "gui:run_gui"
+
+[tool.setuptools]
+packages = ["bin", "core", "widgets", "modules"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"*" = ["*.py", "*.json", "*.sh"]

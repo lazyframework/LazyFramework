@@ -1,0 +1,9 @@
+# LazyFramework GUI Requirements
+# Core Framework Dependencies
+rich>=13.0.0
+PyQt6>=6.4.0
+PyQt6-WebEngine>=6.4.0
+PyQt6-Qt6>=6.4.0
+flask
+pyngrok
+prompt_toolkit

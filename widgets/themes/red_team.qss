@@ -1,0 +1,452 @@
+/* ============================================
+   RED TEAM – CLEAN & PROFESSIONAL EDITION
+   Tampilan ala Cobalt Strike / modern red-team C2
+   ============================================ */
+
+/* ==== GLOBAL FONT SETTINGS ==== */
+QMainWindow, QWidget, QDialog, QMessageBox {
+    background: #0a0a0a;
+    color: #e57373;
+    font-family: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
+    font-size: 12px;
+}
+
+/* ==== MENU BAR – RED TEAM EDITION (gede & agresif) ==== */
+QMenuBar {
+    background: #0a0a0a;
+    color: #ff5252;
+    font-family: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
+    font-size: 11px;
+    font-weight: bold;
+    border-bottom: 2px solid #c62828;
+    padding: 4px 0;
+}
+
+QMenuBar::item {
+    background: transparent;
+    color: #ff5252;
+    padding: 8px 16px;
+    border-radius: 3px;
+    min-width: 60px;
+}
+
+QMenuBar::item:selected {
+    background: #c62828;
+    color: #ffffff;
+}
+
+QMenuBar::item:pressed {
+    background: #8b0000;
+    color: #ffffff;
+}
+
+/* Dropdown menu */
+QMenu {
+    background: #101010;
+    color: #ff8a80;
+    border: 1px solid #c62828;
+    font-family: "Consolas", "DejaVu Sans Mono", monospace;
+    font-size: 11px;
+}
+
+QMenu::item {
+    padding: 8px 25px;
+}
+
+QMenu::item:selected {
+    background: #c62828;
+    color: #ffffff;
+}
+
+/* ==== MAIN WINDOW ==== */
+QMainWindow {
+    background: #0a0a0a;
+    border: none;
+}
+
+/* ==== BUTTONS – Red agresif ==== */
+QPushButton {
+    background: #1a0000;
+    color: #ff5252;
+    border: 1px solid #8b0000;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 12px;
+    min-width: 50px;
+}
+
+QPushButton:hover {
+    background: #3a0000;
+    border: 1px solid #c62828;
+    color: #ff8a80;
+}
+
+QPushButton:pressed {
+    background: #0a0000;
+}
+
+QPushButton:disabled {
+    background: #0a0a0a;
+    color: #666666;
+    border: 1px solid #404040;
+}
+
+/* Run/Stop buttons */
+QPushButton[action="run"], QPushButton[action="stop"] {
+    background: #8b0000;
+    color: #ffffff;
+    border: 1px solid #c62828;
+    font-weight: bold;
+}
+
+QPushButton[action="run"]:hover, QPushButton[action="stop"]:hover {
+    background: #c62828;
+}
+
+/* ==== CONSOLE OUTPUT – FONT BESAR & WARNA MATRIX ==== */
+QTextEdit#console_output {
+    background: #050505;
+    color: #00ff00;
+    border: 1px solid #c62828;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: "DejaVu Sans Mono", "Consolas", "Courier New", monospace;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.4;
+    selection-background-color: #c62828;
+    selection-color: #ffffff;
+}
+
+/* ==== MODULE DETAIL INFO – Font lebih besar ==== */
+QTextEdit#module_detail_info {
+    background: #0a0a0a;
+    color: #ff8a80;
+    border: 1px solid #8b0000;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: "DejaVu Sans Mono", "Consolas", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* ==== SESSION OUTPUT ==== */
+QTextEdit#session_output {
+    background: #050505;
+    color: #00ff00;
+    border: 1px solid #8b0000;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: "DejaVu Sans Mono", "Consolas", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* ==== SESSION INFO SIDEBAR ==== */
+QTextEdit#session_info {
+    background: #0a0a0a;
+    color: #ff8a80;
+    border: 1px solid #8b0000;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: "DejaVu Sans Mono", "Consolas", "Courier New", monospace;
+    font-size: 11px;
+}
+
+/* ==== INPUT FIELDS ==== */
+QLineEdit, QPlainTextEdit {
+    background: #101010;
+    color: #ff5252;
+    border: 1px solid #404040;
+    border-radius: 4px;
+    padding: 8px;
+    font-family: "Consolas", "DejaVu Sans Mono", monospace;
+    font-size: 12px;
+    selection-background-color: #c62828;
+    selection-color: #ffffff;
+}
+
+QLineEdit:focus, QPlainTextEdit:focus {
+    border: 1px solid #c62828;
+    background: #1a0000;
+}
+
+/* Session command input */
+QLineEdit#session_cmd_input {
+    background: #101010;
+    color: #ffffff;
+    border: 1px solid #8b0000;
+    border-radius: 4px;
+    padding: 8px;
+    font-family: "DejaVu Sans Mono", monospace;
+    font-size: 12px;
+}
+
+/* Search input */
+QLineEdit#search_input {
+    background: #101010;
+    color: #ff5252;
+    border: 1px solid #8b0000;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 12px;
+}
+
+/* ==== LIST WIDGET – Module list ==== */
+QListWidget {
+    background: #101010;
+    color: #ff5252;
+    border: 1px solid #404040;
+    alternate-background-color: #1a1a1a;
+    outline: none;
+    font-family: "Consolas", monospace;
+    font-size: 12px;
+}
+
+QListWidget::item {
+    padding: 8px;
+    border-bottom: 1px solid #404040;
+}
+
+QListWidget::item:selected {
+    background: #8b0000;
+    color: #ffffff;
+}
+
+QListWidget::item:hover {
+    background: #3a0000;
+    color: #ff8a80;
+}
+
+/* Session list */
+QListWidget#session_list {
+    background: #0a0a0a;
+    font-size: 12px;
+}
+
+QListWidget#session_list::item:selected {
+    background: #c62828;
+}
+
+/* ==== TABLE WIDGET ==== */
+QTableWidget {
+    background: #101010;
+    color: #ff5252;
+    border: 1px solid #404040;
+    alternate-background-color: #1a1a1a;
+    font-family: "Consolas", monospace;
+    font-size: 11px;
+}
+
+QTableWidget::item {
+    padding: 6px;
+}
+
+QTableWidget::item:selected {
+    background: #8b0000;
+    color: #ffffff;
+}
+
+/* ==== TAB WIDGET – Clean & Tajam ==== */
+QTabWidget::pane {
+    border: 1px solid #404040;
+    background: #0a0a0a;
+    border-radius: 4px;
+}
+
+QTabBar::tab {
+    background: #1a0000;
+    color: #ff5252;
+    border: 1px solid #8b0000;
+    padding: 8px 16px;
+    margin-right: 2px;
+    min-width: 90px;
+    font-family: "Consolas", monospace;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+QTabBar::tab:selected {
+    background: #c62828;
+    color: #ffffff;
+    border: 1px solid #c62828;
+}
+
+QTabBar::tab:hover:!selected {
+    background: #3a0000;
+    color: #ff8a80;
+    border: 1px solid #c62828;
+}
+
+/* ==== GROUP BOX ==== */
+QGroupBox {
+    color: #ff5252;
+    border: 1px solid #8b0000;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 8px;
+    background: #0a0a0a;
+    color: #ff5252;
+}
+
+/* ==== SCROLLBAR ==== */
+QScrollBar:vertical {
+    background: #0a0a0a;
+    width: 10px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical {
+    background: #8b0000;
+    border-radius: 4px;
+    min-height: 30px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #c62828;
+}
+
+QScrollBar:horizontal {
+    background: #0a0a0a;
+    height: 10px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:horizontal {
+    background: #8b0000;
+    border-radius: 4px;
+    min-width: 30px;
+}
+
+/* ==== PROGRESS BAR ==== */
+QProgressBar {
+    border: 1px solid #8b0000;
+    background: #101010;
+    text-align: center;
+    color: #ff5252;
+    font-size: 11px;
+    border-radius: 3px;
+}
+
+QProgressBar::chunk {
+    background: #c62828;
+    border-radius: 2px;
+}
+
+/* ==== COMBO BOX ==== */
+QComboBox {
+    background: #101010;
+    color: #ff5252;
+    border: 1px solid #404040;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+QComboBox:hover {
+    border: 1px solid #c62828;
+}
+
+QComboBox::drop-down {
+    border: none;
+}
+
+QComboBox QAbstractItemView {
+    background: #101010;
+    color: #ff5252;
+    selection-background-color: #c62828;
+}
+
+/* ==== TOOLTIP ==== */
+QToolTip {
+    background: #1a0000;
+    color: #ff8a80;
+    border: 1px solid #8b0000;
+    font-family: monospace;
+    font-size: 11px;
+}
+
+/* ==== SESSION HEADER ==== */
+QLabel#session_header {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 8px;
+    border-bottom: 2px solid #c62828;
+    color: #ffffff;
+    background: #3a0000;
+    border-radius: 4px;
+}
+
+/* ==== SESSION BUTTONS ==== */
+QPushButton#session_button {
+    background: #8b0000;
+    color: #ffffff;
+    border: 1px solid #c62828;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+QPushButton#session_button:hover {
+    background: #c62828;
+}
+
+/* ==== SPLASH SCREEN ==== */
+QSplashScreen {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 #0a0a0a, stop:0.5 #1a0000, stop:1 #0a0a0a);
+    border: 2px solid #c62828;
+    border-radius: 10px;
+}
+
+/* ==== STATUS BAR ==== */
+QStatusBar {
+    background: #0a0a0a;
+    color: #8b0000;
+    border-top: 1px solid #c62828;
+}
+
+/* ==== CHECKBOX & RADIO ==== */
+QCheckBox {
+    color: #ff5252;
+    font-size: 11px;
+}
+
+QCheckBox::indicator {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #8b0000;
+    border-radius: 3px;
+    background: #101010;
+}
+
+QCheckBox::indicator:checked {
+    background: #c62828;
+    border-color: #c62828;
+}
+
+QRadioButton {
+    color: #ff5252;
+    font-size: 11px;
+}
+
+QRadioButton::indicator {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #8b0000;
+    border-radius: 7px;
+    background: #101010;
+}
+
+QRadioButton::indicator:checked {
+    background: #c62828;
+    border-color: #c62828;
+}

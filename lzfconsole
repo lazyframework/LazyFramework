@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+LazyFramework Entry Point
+- Tanpa argumen atau dengan --gui → GUI tanpa console window
+- Dengan argumen lain (atau dipanggil langsung di terminal) → Console mode klasik
+"""
+
+import sys
+import os
+from pathlib import Path
+
+
+import platform
+import time
+# Add project root to path
+PROJECT_ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(PROJECT_ROOT))
+
+def launch_gui():
+    """Jalankan GUI tanpa membuka terminal window"""
+    os.chdir(BASE_DIR)
+    
+    # Import di sini supaya tidak ada circular import saat console mode
+    try:
+        from gui import run_gui
+        run_gui()
+    except ImportError as e:
+        print(f"[!] GUI tidak tersedia: {e}")
+        print("[!] Install: pip install PyQt6 rich stem")
+        print("[!] Pastikan file 'gui.py' ada di folder ini!")
+        sys.exit(1)
+
+
+def launch_console():
+   
+    """Jalankan mode console klasik (animasi + banner + REPL)"""
+    from bin.console import LazyFramework
+    from core import SingleLineMarquee, load_banners_from_folder
+
+        # Animasi marquee
+    anim = SingleLineMarquee(
+            "[*] Starting the Lazy Framework Console...",
+            text_speed=0.20,
+            spinner_speed=0.06,
+            reset_delay=0.08,
+            max_loops=2
+    )
+    anim.start()
+    anim.wait()
+
+    time.sleep(1)
+    os.system("cls" if platform.system() == "Windows" else "clear")
+    load_banners_from_folder()
+
+        # Masuk REPL
+    LazyFramework().repl()
+  
+
+
+def main():
+    # Jika ada argumen --gui ATAU tidak ada argumen sama sekali + sedang tidak di terminal interaktif
+    if len(sys.argv) > 1 and sys.argv[1] == "--gui":
+        launch_gui()
+    elif len(sys.argv) == 1 and not sys.stdin.isatty():
+        # Dipanggil dari desktop entry / launcher (bukan dari terminal manual)
+        launch_gui()
+    else:
+        # Semua kasus lain → mode console biasa
+        launch_console()
+
+
+# =============================================================================
+#  ENTRY POINT UTAMA
+# =============================================================================
+if __name__ == "__main__":
+    # Windows: jika dijalankan via double-click atau desktop shortcut, sembunyikan console
+    if platform.system() == "Windows":
+        import subprocess
+        import sys
+
+        # Cek apakah sudah dijalankan sebagai "hidden"
+        if not (len(sys.argv) > 1 and sys.argv[1] == "--hidden"):
+            # Jalankan ulang script tapi sembunyikan console window
+            subprocess.Popen([
+                sys.executable, __file__, "--hidden"
+            ] + sys.argv[1:], 
+            creationflags=subprocess.CREATE_NO_WINDOW)
+            sys.exit(0)
+
+    main()
