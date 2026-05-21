@@ -7,6 +7,7 @@ DNS Enumeration and Reconnaissance Tool
 """
 
 import subprocess
+import shutil
 import re
 import json
 import xml.etree.ElementTree as ET
