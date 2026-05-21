@@ -201,7 +201,7 @@ def check_nikto():
         "/usr/bin/nikto",
         "/usr/local/bin/nikto",
         "/opt/nikto/nikto.pl",
-        "/usr/share/nikto/nikto.pl"
+        "/usr/share/nikto/program/nikto.pl"
     ]
     
     for path in nikto_paths:
