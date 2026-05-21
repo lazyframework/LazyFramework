@@ -93,7 +93,7 @@ ifeq ($(UNAME_S),Linux)
     endif
 endif
 
-.PHONY: all install uninstall clean info help banner check test run-gui install-deps install-binary install-console install-desktop install-icon finish
+.PHONY: all install uninstall clean info help banner check install-deps install-binary install-console install-desktop install-icon finish
 
 # ===========================================================================
 # BANNER (Metasploit-style)
@@ -306,15 +306,6 @@ install-icon:
 # ===========================================================================
 finish:
 	@printf "$(BRIGHT_GREEN)"
-	@echo "   ▄████████    ▄████████    ▄████████    ▄████████ "
-	@echo "  ███    ███   ███    ███   ███    ███   ███    ███ "
-	@echo "  ███    ███   ███    ███   ███    █▀    ███    █▀  "
-	@echo "  ███    ███  ▄███▄▄▄▄██▀  ▄███▄▄▄       ███        "
-	@echo "▀███████████ ▀▀███▀▀▀▀▀   ▀▀███▀▀▀     ▀███████████ "
-	@echo "  ███    ███ ▀███████████   ███    █▄           ███ "
-	@echo "  ███    ███   ███    ███   ███    ███    ▄█    ███ "
-	@echo "  ███    █▀    ███    ███   ██████████  ▄████████▀  "
-	@echo "               ███    ███                           "
 	@printf "$(RESET)"
 	@echo ""
 	@printf "$(BRIGHT_GREEN)[+]$(RESET) $(BRIGHT_CYAN)LazyFramework v$(VERSION) installed!$(RESET)\n"
@@ -364,15 +355,6 @@ uninstall:
 # ===========================================================================
 # DEVELOPMENT SHORTCUTS
 # ===========================================================================
-run-gui:
-	@printf "$(BRIGHT_GREEN)→ Running GUI...$(RESET)\n"
-	@python3 gui.py
-
-test:
-	@printf "$(BRIGHT_YELLOW)→ Running basic checks...$(RESET)\n"
-	@python3 -m py_compile gui.py
-	@python3 -m py_compile bin/console.py
-	@echo "$(BRIGHT_GREEN)Syntax OK$(RESET)"
 
 clean:
 	@find . -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
@@ -387,9 +369,7 @@ help:
 	@echo "  make all          → Show banner + header + check + install"
 	@echo "  make install      → Install framework"
 	@echo "  make uninstall    → Remove framework"
-	@echo "  make clean        → Remove pyc files"
-	@echo "  make run-gui      → Run GUI directly"
-	@echo "  make test         → Check syntax"
+	@echo "  make clean        → Remove pyc file"
 	@echo "  make info         → Show system info"
 	@echo "  make help         → This help"
 
