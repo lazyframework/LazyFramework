@@ -8,6 +8,7 @@ Web server vulnerability scanner with Rich table output
 
 import subprocess
 import re
+import shutil
 import os
 import json
 from pathlib import Path
@@ -227,16 +228,25 @@ def check_nikto():
     return None
 
 def display_banner():
-    """Display Nikto banner"""
-    banner = r"""
- _                    _____                                            _    
-| |    __ _ _____   _|  ___| __ __ _ _ __ ___   _____      _____  _ __| | __
-| |   / _` |_  / | | | |_ | '__/ _` | '_ ` _ \ / _ \ \ /\ / / _ \| '__| |/ /
-| |__| (_| |/ /| |_| |  _|| | | (_| | | | | | |  __/\ V  V / (_) | |  |   < 
-|_____\__,_/___|\__, |_|  |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\
-                |___/                                                       
-    """
-    console.print(banner, style="cyan")
+    """Dynamic banner yang otomatis menyesuaikan lebar layar"""
+    try:
+        width = shutil.get_terminal_size().columns
+    except (AttributeError, OSError):
+        width = 80  # fallback untuk mobile/termux
+    
+    width = min(width, 85)  # batasi agar tetap rapi
+    
+    title = "N I K T O"
+    subtitle = "Web Server Scanner"
+    
+    line = "═" * (width - 2)
+    title_pad = (width - len(title) - 2) // 2
+    subtitle_pad = (width - len(subtitle) - 2) // 2
+    
+    console.print(f"\n[bold cyan]╔{line}╗[/bold cyan]")
+    console.print(f"[bold cyan]║[/bold cyan]{' ' * title_pad}[bold white]{title}[/bold white]{' ' * (width - len(title) - title_pad - 2)}[bold cyan]║[/bold cyan]")
+    console.print(f"[bold cyan]║[/bold cyan]{' ' * subtitle_pad}[bold cyan]{subtitle}[/bold cyan]{' ' * (width - len(subtitle) - subtitle_pad - 2)}[bold cyan]║[/bold cyan]")
+    console.print(f"[bold cyan]╚{line}╝[/bold cyan]\n")
 
 def show_options_table(options):
     """Display current options in a nice table"""
