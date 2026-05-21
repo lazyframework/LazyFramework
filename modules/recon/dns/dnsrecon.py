@@ -248,7 +248,7 @@ def check_dnsrecon():
 
 def display_banner():
     """Display DNSRecon banner"""
-    banner = """
+    banner = r"""
  _                    _____                                            _    
 | |    __ _ _____   _|  ___| __ __ _ _ __ ___   _____      _____  _ __| | __
 | |   / _` |_  / | | | |_ | '__/ _` | '_ ` _ \ / _ \ \ /\ / / _ \| '__| |/ /
