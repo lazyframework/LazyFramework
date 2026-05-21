@@ -172,27 +172,23 @@ install-deps:
 	@echo ""
 
 # ===========================================================================
-# INSTALL BINARY FILES (FIXED - No Duplication)
+# INSTALL BINARY FILES
 # ===========================================================================
 install-binary:
 	@printf "$(BRIGHT_YELLOW)[*]$(RESET) Installing framework files...\n"
-	@printf "   Cleaning old installation... "
+	@printf "   Creating directory... "
 	@if [ "$(NEED_SUDO)" = "1" ]; then \
-		sudo rm -rf "$(INSTALL_DIR)" 2>/dev/null || true; \
 		sudo mkdir -p "$(INSTALL_DIR)"; \
 	else \
-		rm -rf "$(INSTALL_DIR)" 2>/dev/null || true; \
 		mkdir -p "$(INSTALL_DIR)"; \
 	fi
 	@printf "$(BRIGHT_GREEN)OK$(RESET)\n"
 
-	@printf "   Copying core files... "
+	@printf "   Copying files... "
 	@if [ "$(NEED_SUDO)" = "1" ]; then \
-		sudo cp -r bin core modules themes widgets "$(INSTALL_DIR)/" 2>/dev/null || true; \
-		sudo cp -f *.py lzfconsole "$(INSTALL_DIR)/" 2>/dev/null || true; \
+		sudo cp -r *.py lzfconsole bin core modules themes widgets "$(INSTALL_DIR)/" 2>/dev/null || true; \
 	else \
-		cp -r bin core modules themes widgets "$(INSTALL_DIR)/" 2>/dev/null || true; \
-		cp -f *.py lzfconsole "$(INSTALL_DIR)/" 2>/dev/null || true; \
+		cp -r *.py lzfconsole bin core modules themes widgets "$(INSTALL_DIR)/" 2>/dev/null || true; \
 	fi
 	@printf "$(BRIGHT_GREEN)OK$(RESET)\n"
 
@@ -234,7 +230,7 @@ install-console:
 	@echo ""
 
 # ===========================================================================
-# INSTALL DESKTOP ENTRY (Linux only, skip for Termux)
+# INSTALL DESKTOP ENTRY
 # ===========================================================================
 install-desktop:
 	@if [ "$(IS_TERMUX)" = "0" ]; then \
@@ -242,41 +238,39 @@ install-desktop:
 		printf "   Creating .desktop file... "; \
 		if [ "$(NEED_SUDO)" = "1" ]; then \
 			sudo mkdir -p "$(DESKTOP_DIR)"; \
-			printf '[Desktop Entry]\n' | sudo tee "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'Version=1.0\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'Type=Application\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'Name=LazyFramework\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'GenericName=Penetration Testing Framework\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'Comment=Professional Security Testing Framework\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'Exec=lazyframework\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'Icon=lazyframework\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'Categories=Utility;Security;Development;\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'Terminal=false\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
-			printf 'StartupNotify=true\n' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo '[Desktop Entry]' | sudo tee "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'Version=1.0' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'Type=Application' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'Name=LazyFramework' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'GenericName=Penetration Testing Framework' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'Comment=Professional Security Testing Framework' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'Exec=lazyframework' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'Icon=lazyframework' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'Categories=Utility;Security;Development;' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'Terminal=false' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
+			echo 'StartupNotify=true' | sudo tee -a "$(DESKTOP_DIR)/lazyframework.desktop" > /dev/null; \
 			sudo chmod 644 "$(DESKTOP_DIR)/lazyframework.desktop"; \
 		else \
 			mkdir -p "$(DESKTOP_DIR)"; \
-			printf '[Desktop Entry]\n' > "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'Version=1.0\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'Type=Application\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'Name=LazyFramework\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'GenericName=Penetration Testing Framework\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'Comment=Professional Security Testing Framework\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'Exec=lazyframework\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'Icon=lazyframework\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'Categories=Utility;Security;Development;\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'Terminal=false\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
-			printf 'StartupNotify=true\n' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo '[Desktop Entry]' > "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'Version=1.0' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'Type=Application' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'Name=LazyFramework' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'GenericName=Penetration Testing Framework' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'Comment=Professional Security Testing Framework' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'Exec=lazyframework' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'Icon=lazyframework' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'Categories=Utility;Security;Development;' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'Terminal=false' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
+			echo 'StartupNotify=true' >> "$(DESKTOP_DIR)/lazyframework.desktop"; \
 			chmod 644 "$(DESKTOP_DIR)/lazyframework.desktop"; \
 		fi; \
 		printf "$(BRIGHT_GREEN)OK$(RESET)\n"; \
 		echo ""; \
-	else \
-		printf "$(BRIGHT_YELLOW)[*]$(RESET) Skipping desktop entry (Termux detected)\n"; \
 	fi
 
 # ===========================================================================
-# INSTALL ICON (Linux only, skip for Termux)
+# INSTALL ICON
 # ===========================================================================
 install-icon:
 	@if [ "$(IS_TERMUX)" = "0" ]; then \
@@ -284,29 +278,27 @@ install-icon:
 		printf "   Creating SVG icon... "; \
 		if [ "$(NEED_SUDO)" = "1" ]; then \
 			sudo mkdir -p "$(ICON_DIR)"; \
-			printf '<?xml version="1.0" encoding="UTF-8"?>\n' | sudo tee "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
-			printf '<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">\n' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
-			printf '<rect width="256" height="256" fill="#0d1117" rx="30"/>\n' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
-			printf '<rect x="28" y="28" width="200" height="200" fill="#161b22" rx="15"/>\n' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
-			printf '<text x="128" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#50fa7b">LF</text>\n' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
-			printf '<text x="128" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#8be9fd">Framework</text>\n' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
-			printf '<path d="M60 170 H196 M60 185 H180 M60 200 H160" stroke="#6272a4" stroke-width="4" stroke-linecap="round"/>\n' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
-			printf '</svg>\n' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
+			echo '<?xml version="1.0" encoding="UTF-8"?>' | sudo tee "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
+			echo '<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
+			echo '<rect width="256" height="256" fill="#0d1117" rx="30"/>' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
+			echo '<rect x="28" y="28" width="200" height="200" fill="#161b22" rx="15"/>' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
+			echo '<text x="128" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#50fa7b">LF</text>' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
+			echo '<text x="128" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#8be9fd">Framework</text>' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
+			echo '<path d="M60 170 H196 M60 185 H180 M60 200 H160" stroke="#6272a4" stroke-width="4" stroke-linecap="round"/>' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
+			echo '</svg>' | sudo tee -a "$(ICON_DIR)/lazyframework.svg" > /dev/null; \
 		else \
 			mkdir -p "$(ICON_DIR)"; \
-			printf '<?xml version="1.0" encoding="UTF-8"?>\n' > "$(ICON_DIR)/lazyframework.svg"; \
-			printf '<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">\n' >> "$(ICON_DIR)/lazyframework.svg"; \
-			printf '<rect width="256" height="256" fill="#0d1117" rx="30"/>\n' >> "$(ICON_DIR)/lazyframework.svg"; \
-			printf '<rect x="28" y="28" width="200" height="200" fill="#161b22" rx="15"/>\n' >> "$(ICON_DIR)/lazyframework.svg"; \
-			printf '<text x="128" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#50fa7b">LF</text>\n' >> "$(ICON_DIR)/lazyframework.svg"; \
-			printf '<text x="128" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#8be9fd">Framework</text>\n' >> "$(ICON_DIR)/lazyframework.svg"; \
-			printf '<path d="M60 170 H196 M60 185 H180 M60 200 H160" stroke="#6272a4" stroke-width="4" stroke-linecap="round"/>\n' >> "$(ICON_DIR)/lazyframework.svg"; \
-			printf '</svg>\n' >> "$(ICON_DIR)/lazyframework.svg"; \
+			echo '<?xml version="1.0" encoding="UTF-8"?>' > "$(ICON_DIR)/lazyframework.svg"; \
+			echo '<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">' >> "$(ICON_DIR)/lazyframework.svg"; \
+			echo '<rect width="256" height="256" fill="#0d1117" rx="30"/>' >> "$(ICON_DIR)/lazyframework.svg"; \
+			echo '<rect x="28" y="28" width="200" height="200" fill="#161b22" rx="15"/>' >> "$(ICON_DIR)/lazyframework.svg"; \
+			echo '<text x="128" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#50fa7b">LF</text>' >> "$(ICON_DIR)/lazyframework.svg"; \
+			echo '<text x="128" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#8be9fd">Framework</text>' >> "$(ICON_DIR)/lazyframework.svg"; \
+			echo '<path d="M60 170 H196 M60 185 H180 M60 200 H160" stroke="#6272a4" stroke-width="4" stroke-linecap="round"/>' >> "$(ICON_DIR)/lazyframework.svg"; \
+			echo '</svg>' >> "$(ICON_DIR)/lazyframework.svg"; \
 		fi; \
 		printf "$(BRIGHT_GREEN)OK$(RESET)\n"; \
 		echo ""; \
-	else \
-		printf "$(BRIGHT_YELLOW)[*]$(RESET) Skipping icon installation (Termux detected)\n"; \
 	fi
 
 # ===========================================================================
@@ -331,7 +323,7 @@ install: banner header check install-deps install-binary install-console install
 	@echo "Installation completed."
 
 # ===========================================================================
-# UNINSTALL (Clean removal for both Termux and Linux)
+# UNINSTALL
 # ===========================================================================
 uninstall:
 	@printf "$(BRIGHT_RED)[!]$(RESET) This will remove LazyFramework!\n"
@@ -377,7 +369,7 @@ help:
 	@echo "  make all          → Show banner + header + check + install"
 	@echo "  make install      → Install framework"
 	@echo "  make uninstall    → Remove framework"
-	@echo "  make clean        → Remove pyc files"
+	@echo "  make clean        → Remove pyc file"
 	@echo "  make info         → Show system info"
 	@echo "  make help         → This help"
 
