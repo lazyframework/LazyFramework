@@ -247,16 +247,32 @@ def check_dnsrecon():
     return None
 
 def display_banner():
-    """Display DNSRecon banner"""
-    banner = r"""
- _                    _____                                            _    
-| |    __ _ _____   _|  ___| __ __ _ _ __ ___   _____      _____  _ __| | __
-| |   / _` |_  / | | | |_ | '__/ _` | '_ ` _ \ / _ \ \ /\ / / _ \| '__| |/ /
-| |__| (_| |/ /| |_| |  _|| | | (_| | | | | | |  __/\ V  V / (_) | |  |   < 
-|_____\__,_/___|\__, |_|  |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\
-                |___/    
-    """
-    console.print(banner, style="cyan")
+    """Display dynamic banner (tanpa Rich console)"""
+    try:
+        width = shutil.get_terminal_size().columns
+    except (AttributeError, OSError):
+        width = 80  # fallback untuk mobile / environment tanpa terminal size
+    
+    width = min(width, 80)  # batasi agar tetap rapi di layar kecil
+    
+    title = "DNSRecon"
+    subtitle = "Advanced DNS Enumeration Tool"
+    
+    line = "═" * (width - 2)
+    
+    # Padding untuk rata tengah
+    title_pad = (width - len(title) - 2) // 2
+    subtitle_pad = (width - len(subtitle) - 2) // 2
+    
+    # ANSI Color
+    CYAN = "\033[1;36m"
+    WHITE = "\033[1;37m"
+    RESET = "\033[0m"
+    
+    print(f"\n{CYAN}╔{line}╗{RESET}")
+    print(f"{CYAN}║{RESET}{' ' * title_pad}{WHITE}{title}{RESET}{' ' * (width - len(title) - title_pad - 2)}{CYAN}║{RESET}")
+    print(f"{CYAN}║{RESET}{' ' * subtitle_pad}{CYAN}{subtitle}{RESET}{' ' * (width - len(subtitle) - subtitle_pad - 2)}{CYAN}║{RESET}")
+    print(f"{CYAN}╚{line}╝{RESET}\n")
 
 def display_type_info():
     """Display available enumeration types"""
