@@ -15,7 +15,7 @@ import platform
 import time
 
 # Set path
-project_root = "/usr/share/lazyframework"
+project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
 os.chdir(project_root)
 def launch_gui():
