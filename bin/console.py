@@ -736,6 +736,7 @@ class LazyFramework:
             ("exit / quit", "Exit the program"),
         ]
         table = Table(title="Core Commands", box=box.SIMPLE_HEAVY)
+        
         table.add_column("Command", style="bold white")
         table.add_column("Description", style="white")
         for cmd, desc in commands:
